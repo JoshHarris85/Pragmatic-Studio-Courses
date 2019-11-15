@@ -5,3 +5,7 @@ puts "Projects:
   Project LMN\t
   Project XYZ
 "
+
+funding = 10000
+
+puts "We have $#{funding} dollars in funding."
