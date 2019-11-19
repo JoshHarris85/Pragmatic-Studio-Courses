@@ -1,11 +1,6 @@
-puts "Project ABC has $1000 in funding.\n\n"
+def project_funds(name, funding=10000)
+  puts "#{name} has $#{funding} dollars in funding."
+end
 
-puts "Projects:
-  Project ABC\t
-  Project LMN\t
-  Project XYZ
-"
-
-funding = 10000
-
-puts "We have $#{funding} dollars in funding."
+project_funds("abc")
+project_funds("def", 20000)
