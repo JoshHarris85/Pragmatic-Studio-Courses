@@ -31,9 +31,14 @@ end
 
 project1 = Project.new('LMN', 500, 3000)
 project2 = Project.new('XYZ', 25, 75)
+
+projects = [project1, project2]
+
 puts project1
 puts project2
 project1.remove_funds(15)
 project2.add_funds(25)
-puts project1
-puts project2
+
+projects.each do |project|
+  puts project
+end
