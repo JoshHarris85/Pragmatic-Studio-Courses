@@ -29,16 +29,36 @@ class Project
   end
 end
 
+class ProjectCollection
+  def initialize(name)
+    @name = name
+    @projects = []
+  end
+
+  def add_project(project)
+    @projects << project
+  end
+
+  def request_funding
+    puts "There are #{@projects.length} projects in this collection."
+
+    @projects.each do |project|
+      puts project
+    end
+
+    @projects.each do |project|
+      project.remove_funds(15)
+      project.add_funds(25)
+      project.add_funds(25)
+      puts project
+    end
+  end
+end
+
 project1 = Project.new('LMN', 500, 3000)
 project2 = Project.new('XYZ', 25, 75)
 
-projects = [project1, project2]
-
-puts project1
-puts project2
-project1.remove_funds(15)
-project2.add_funds(25)
-
-projects.each do |project|
-  puts project
-end
+collection = ProjectCollection.new('VC-Friendly Start-up Projects')
+collection.add_project(project1)
+collection.add_project(project2)
+collection.request_funding
