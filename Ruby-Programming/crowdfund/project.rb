@@ -29,4 +29,8 @@ class Project
   def funding_needed
     target_fund - current_fund
   end
+
+  def funded?
+    funding_needed.zero?
+  end
 end

@@ -1,3 +1,5 @@
+require '../studio_game/die.rb'
+
 class FundRequest
   def initialize(name)
     @name = name
@@ -16,9 +18,10 @@ class FundRequest
     end
 
     @projects.each do |project|
-      project.remove_funds(15)
-      project.add_funds(25)
-      project.add_funds(25)
+      number_rolled = Die.new.roll
+
+      number_rolled.even? ? project.add_funds(25) : project.remove_funds(25)
+
       puts project
     end
   end

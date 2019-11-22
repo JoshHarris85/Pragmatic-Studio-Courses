@@ -40,4 +40,24 @@ describe Project do
       expect(@project.target_fund).to eq(0)
     end
   end
+
+  context 'a project is funded' do
+    before do
+      @project = Project.new('test', 10, 10)
+    end
+
+    it 'is funded' do
+      expect(@project).to be_funded
+    end
+  end
+
+  context 'a project is not funded' do
+    before do
+      @project = Project.new('test', 10, 100)
+    end
+
+    it 'is not funded' do
+      expect(@project).to_not be_funded
+    end
+  end
 end
