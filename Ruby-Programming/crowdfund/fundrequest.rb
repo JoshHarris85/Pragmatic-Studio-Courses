@@ -1,4 +1,4 @@
-require '../studio_game/die.rb'
+require_relative 'fund_turn'
 
 class FundRequest
   def initialize(name)
@@ -14,14 +14,7 @@ class FundRequest
     puts "There are #{@projects.length} projects in this collection."
 
     @projects.each do |project|
-      puts project
-    end
-
-    @projects.each do |project|
-      number_rolled = Die.new.roll
-
-      number_rolled.even? ? project.add_funds(25) : project.remove_funds(25)
-
+      FundTurn.take_turn(project)
       puts project
     end
   end
