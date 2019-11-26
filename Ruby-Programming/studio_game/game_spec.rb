@@ -16,21 +16,21 @@ describe Game do
   it 'woots the player if a high number occurs' do
     allow_any_instance_of(Die).to receive(:roll).and_return(6)
 
-    @game.play
+    @game.play(1)
     expect(@player.health).to be(@initial_health + 15)
   end
 
   it 'skips the player if a medium number occurs' do
     allow_any_instance_of(Die).to receive(:roll).and_return(4)
 
-    @game.play
+    @game.play(1)
     expect(@player.health).to be(@initial_health)
   end
 
   it 'blams the player if a low number occurs' do
     allow_any_instance_of(Die).to receive(:roll).and_return(2)
 
-    @game.play
+    @game.play(1)
     expect(@player.health).to be(@initial_health - 10)
   end
 end

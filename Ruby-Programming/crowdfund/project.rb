@@ -14,6 +14,10 @@ class Project
     "Project #{@name} has $#{@current_fund} in funding towards a goal of $#{@target_fund} with $#{funding_needed} to go."
   end
 
+  def <=>(other)
+    other.funding_needed <=> funding_needed
+  end
+
   def add_funds(funds)
     @current_fund += funds
 

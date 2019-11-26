@@ -17,7 +17,7 @@ describe FundRequest do
   it 'funds the startup if an even number is rolled' do
     allow_any_instance_of(Die).to receive(:roll).and_return(2)
 
-    @collection.request_funding
+    @collection.request_funding(1)
     expect(@project1.current_fund).to be(@initial_fund + 25)
     expect(@project2.current_fund).to be(@initial_fund + 25)
   end
@@ -25,7 +25,7 @@ describe FundRequest do
   it 'removes funds from the startup if an odd number is rolled' do
     allow_any_instance_of(Die).to receive(:roll).and_return(3)
 
-    @collection.request_funding
+    @collection.request_funding(1)
     expect(@project1.current_fund).to be(@initial_fund - 25)
     expect(@project2.current_fund).to be(@initial_fund - 25)
   end
