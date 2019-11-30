@@ -10,6 +10,6 @@ module FundTurn
     number_rolled.even? ? project.add_funds(25) : project.remove_funds(25)
 
     pledge = PledgePool.random
-    puts "Project #{project.name} received a #{pledge.type} pledge worth $#{pledge.funds}."
+    project.add_pledge(pledge)
   end
 end

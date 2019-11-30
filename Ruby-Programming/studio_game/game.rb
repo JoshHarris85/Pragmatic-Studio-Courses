@@ -48,9 +48,18 @@ class Game
 
     print_weak_players(weak)
 
-    puts "\n"
+    print_player_points
+
+    puts "\nTotal game points: #{total_points}"
 
     print_winner
+  end
+
+  def print_player_points
+    @players.each do |player|
+      puts "\n#{player.name}'s point totals:"
+      puts "#{player.points} grand total points"
+    end
   end
 
   def print_name_and_heatlh(player)
@@ -75,6 +84,12 @@ class Game
     puts "\n#{@title} High Scores:\n"
     @players.sort.each do |player|
       puts "#{player.name.ljust(20, '.')} #{player.score}\n"
+    end
+  end
+
+  def total_points
+    @players.reduce(0) do |sum, player|
+      sum + player.points
     end
   end
 end

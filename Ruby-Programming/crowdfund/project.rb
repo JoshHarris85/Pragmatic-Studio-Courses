@@ -1,13 +1,14 @@
 require_relative 'project'
 
 class Project
-  attr_reader :current_fund, :target_fund
+  attr_reader :current_fund, :target_fund, :pledges
   attr_accessor :name
 
   def initialize(name, current_fund = 0, target_fund = 0)
     @name = name
     @current_fund = current_fund
     @target_fund = target_fund
+    @pledges = Hash.new(0)
   end
 
   def to_s
@@ -16,6 +17,13 @@ class Project
 
   def <=>(other)
     other.funding_needed <=> funding_needed
+  end
+
+  def add_pledge(pledge)
+    @pledges[pledge.type] += pledge.funds
+    @current_fund += pledge.funds
+    puts "Project #{@name} received a #{pledge.type} pledge worth $#{pledge.funds}."
+    puts "Project #{@name}'s pledges: #{@pledges}"
   end
 
   def add_funds(funds)
