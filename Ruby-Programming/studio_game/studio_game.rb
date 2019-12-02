@@ -9,7 +9,9 @@ knuckleheads = Game.new('Knuckleheads')
 knuckleheads.add_player(player1)
 knuckleheads.add_player(player2)
 knuckleheads.add_player(player3)
-knuckleheads.play(10)
+knuckleheads.play(10) do
+  knuckleheads.total_points >= 2000
+end
 
 chipmunk1 = Player.new('alvin')
 chipmunk2 = Player.new('Simon', 60)
@@ -19,4 +21,4 @@ chipmunks = Game.new('Chipmunks')
 chipmunks.add_player(chipmunk1)
 chipmunks.add_player(chipmunk2)
 chipmunks.add_player(chipmunk3)
-chipmunks.play(3)
+chipmunks.play(10)

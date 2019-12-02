@@ -29,7 +29,22 @@ class FundRequest
 
     print_funded(funded)
     print_unfunded(unfunded)
+    print_project_pledges
     print_contributors_needed(unfunded)
+  end
+
+  def print_project_pledges
+    @projects.sort.each do |project|
+      puts "\nProject #{project.name}'s pledges:"
+      total_pledges = 0
+
+      project.each_found_pledge do |pledge|
+        puts "$#{pledge.funds} in #{pledge.type} pledges"
+        total_pledges += pledge.funds
+      end
+
+      puts "$#{total_pledges} in total pledges"
+    end
   end
 
   def print_funded(funded)

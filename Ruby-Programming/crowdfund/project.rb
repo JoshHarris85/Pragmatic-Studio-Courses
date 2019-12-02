@@ -1,4 +1,5 @@
 require_relative 'project'
+require_relative 'pledge_pool'
 
 class Project
   attr_reader :current_fund, :target_fund, :pledges
@@ -17,6 +18,12 @@ class Project
 
   def <=>(other)
     other.funding_needed <=> funding_needed
+  end
+
+  def each_found_pledge
+    @pledges.each do |name, points|
+      yield Pledge.new(name, points)
+    end
   end
 
   def add_pledge(pledge)
