@@ -50,6 +50,10 @@ class Project
   end
 
   def funded?
-    funding_needed.zero?
+    funding_needed.zero? || funding_needed.negative?
+  end
+
+  def unfunded?
+    funding_needed.positive?
   end
 end

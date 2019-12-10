@@ -7,7 +7,7 @@ module FundTurn
   def self.take_turn(project)
     number_rolled = Die.new.roll
 
-    number_rolled.even? ? project.add_funds(25) : project.remove_funds(25)
+    number_rolled.even? ? project.add_funds(25) : project.remove_funds(5)
 
     pledge = PledgePool.random
     project.add_pledge(pledge)

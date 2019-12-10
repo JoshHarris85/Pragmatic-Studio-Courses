@@ -10,6 +10,26 @@ class FundRequest
     @projects << project
   end
 
+  def load_projects(file)
+    File.readlines(file).each do |line|
+      name, current, target = line.split(',')
+      project = Project.new(name, current.to_i, target.to_i)
+      add_project(project)
+    end
+  end
+
+  def save(to_file = 'project_funds_needed.txt')
+    unfunded = @projects.select(&:unfunded?)
+
+    File.open(to_file, 'w') do |file|
+      file.puts "\n #{unfunded.length} Still need contributors!:\n"
+
+      unfunded.sort.each do |project|
+        file.puts "#{project.name} needs $#{project.funding_needed} more in funding."
+      end
+    end
+  end
+
   def request_funding(rounds)
     puts "There are #{@projects.length} projects in this collection."
 

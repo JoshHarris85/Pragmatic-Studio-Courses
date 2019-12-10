@@ -1,24 +1,33 @@
 require_relative 'player'
 require_relative 'game'
 
-player1 = Player.new('moe')
-player2 = Player.new('larry', 60)
-player3 = Player.new('curly', 125)
+# player1 = Player.new('moe')
+# player2 = Player.new('larry', 60)
+# player3 = Player.new('curly', 125)
 
-knuckleheads = Game.new('Knuckleheads')
-knuckleheads.add_player(player1)
-knuckleheads.add_player(player2)
-knuckleheads.add_player(player3)
-knuckleheads.play(10) do
-  knuckleheads.total_points >= 2000
-end
-
-chipmunk1 = Player.new('alvin')
-chipmunk2 = Player.new('Simon', 60)
-chipmunk3 = Player.new('theodore', 125)
+# knuckleheads = Game.new('Knuckleheads')
+# knuckleheads.add_player(player1)
+# knuckleheads.add_player(player2)
+# knuckleheads.add_player(player3)
+# knuckleheads.play(10) do
+#   knuckleheads.total_points >= 2000
+# end
 
 chipmunks = Game.new('Chipmunks')
-chipmunks.add_player(chipmunk1)
-chipmunks.add_player(chipmunk2)
-chipmunks.add_player(chipmunk3)
-chipmunks.play(10)
+chipmunks.load_players(ARGV.shift || 'players.csv')
+
+loop do
+  puts "\nHow many game rounds? ('quit' to exit)"
+  answer = gets.chomp.downcase
+
+  case answer
+  when 'exit', 'quit'
+    chipmunks.print_stats
+    chipmunks.save_high_scores
+    break
+  when %r{^\d+$}
+    chipmunks.play(answer.to_i)
+  else
+    puts 'Please enter how many rounds or quit'
+  end
+end

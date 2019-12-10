@@ -10,6 +10,13 @@ class Player
     @found_treasures = Hash.new(0)
   end
 
+  def self.from_csv(row)
+    name = row[0]
+    health = row[1].to_i
+
+    Player.new(name, Integer(health))
+  end
+
   def name=(new_name)
     @name = new_name.capitalize
   end

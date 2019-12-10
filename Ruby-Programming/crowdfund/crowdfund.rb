@@ -1,10 +1,21 @@
 require_relative 'project'
 require_relative 'fundrequest'
 
-project1 = Project.new('LMN', 500, 3000)
-project2 = Project.new('XYZ', 25, 75)
-
 collection = FundRequest.new('VC-Friendly Start-up Projects')
-collection.add_project(project1)
-collection.add_project(project2)
-collection.request_funding(3)
+collection.load_projects(ARGV.shift || 'projects.csv')
+
+loop do
+  puts "\n Please enter how many funding rounds you would like to happen:"
+  input = gets.chomp.downcase
+
+  case input
+  when %r{^\d+$}
+    collection.request_funding(input.to_i)
+  when 'quit', 'exit'
+    collection.print_stats
+    collection.save
+    break
+  else
+    puts 'Please enter a number or exit to quit.'
+  end
+end

@@ -2,12 +2,34 @@ require_relative 'player'
 require_relative 'game_turn'
 require_relative 'treasure_trove'
 
+require 'csv'
+
 class Game
   attr_reader :title
 
   def initialize(title)
     @title = title
     @players = []
+  end
+
+  def load_players(file)
+    CSV.foreach(file) do |row|
+      player = Player.from_csv(row)
+      add_player(player)
+    end
+  end
+
+  def save_high_scores(file_name = 'high_scores.txt')
+    File.open(file_name, 'w') do |file|
+      file.puts "#{@title} High Scores:"
+      @players.sort.each do |player|
+        file.puts high_score_entry(player)
+      end
+    end
+  end
+
+  def high_score_entry(player)
+    "#{player.name.ljust(20, '.')} #{player.score}\n"
   end
 
   def add_player(player)
@@ -90,7 +112,7 @@ class Game
   def print_winner
     puts "\n#{@title} High Scores:\n"
     @players.sort.each do |player|
-      puts "#{player.name.ljust(20, '.')} #{player.score}\n"
+      puts high_score_entry(player)
     end
   end
 
