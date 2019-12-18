@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/studio_game/player'
+require_relative '../lib/studio_game/clumsy_player'
+require_relative '../lib/studio_game/berserk_player'
+require_relative '../lib/studio_game/game'
+
+module StudioGame
+  chipmunks = Game.new('Chipmunks')
+
+  default_player_file = File.join(File.dirname(__FILE__), 'players.csv')
+  chipmunks.load_players(ARGV.shift || default_player_file)
+
+  klutz = ClumsyPlayer.new('klutz', 105)
+  chipmunks.add_player(klutz)
+
+  berserker = BerserkPlayer.new('berserker', 50)
+  chipmunks.add_player(berserker)
+
+  loop do
+    puts "\nHow many game rounds? ('quit' to exit)"
+    answer = gets.chomp.downcase
+
+    case answer
+    when 'exit', 'quit'
+      chipmunks.print_stats
+      chipmunks.save_high_scores
+      break
+    when %r{^\d+$}
+      chipmunks.play(answer.to_i)
+    else
+      puts 'Please enter how many rounds or quit'
+    end
+  end
+end

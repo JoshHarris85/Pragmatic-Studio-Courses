@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/crowdfund/project'
+require_relative '../lib/crowdfund/grant_project'
+require_relative '../lib/crowdfund/fundrequest'
+
+module FundRaiser
+  collection = FundRequest.new('VC-Friendly Start-up Projects')
+
+  default_collection_file = File.join(File.dirname(__FILE__), 'projects.csv')
+  collection.load_projects(ARGV.shift || default_collection_file)
+
+  grant_project = GrantProject.new('XYZ', 25, 75)
+  collection.add_project(grant_project)
+
+  loop do
+    puts "\n Please enter how many funding rounds you would like to happen:"
+    input = gets.chomp.downcase
+
+    case input
+    when %r{^\d+$}
+      collection.request_funding(input.to_i)
+    when 'quit', 'exit'
+      collection.print_stats
+      collection.save
+      break
+    else
+      puts 'Please enter a number or exit to quit.'
+    end
+  end
+end
