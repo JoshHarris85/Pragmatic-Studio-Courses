@@ -18,4 +18,18 @@ flyers = []
   flyers << Flyer.new("Flyer #{n}", "flyer#{n}@example.com", n * 1000)
 end
 
-puts flyers
+flyers.each { |f| puts "#{f.name} - #{f.miles_flown} miles" }
+
+total_miles = 0
+
+flyers.each { |f| total_miles += f.miles_flown }
+
+puts "Total miles flown: #{total_miles}"
+
+promotions = { "United" => 1.5, "Delta" => 2.0, "Lufthansa" => 2.5 }
+
+promotions.each { |k, v| puts "Earn #{v}x miles by flying #{k}!" }
+
+flyers.each do |f|
+  promotions.each { |k, v| puts "#{f.name} could earn #{v * f.miles_flown}x miles by flying #{k}!" }
+end
